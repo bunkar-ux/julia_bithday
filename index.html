@@ -380,22 +380,22 @@
       cakesContainer.appendChild(cake);
     }
 
-    function spawnConfetti() {
-      const piece = document.createElement('div');
-      piece.className = 'confetti';
-      piece.style.left = Math.random() * 100 + 'vw';
-      piece.style.animationDuration = (Math.random() * 2 + 3) + 's';
-      piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
-      piece.style.background = ['red', 'blue', 'green', 'orange', 'purple', 'deeppink'][Math.floor(Math.random() * 6)];
-      document.body.appendChild(piece);
-      setTimeout(() => piece.remove(), 5000);
-    }
+function spawnConfetti() {
+  const piece = document.createElement('div');
+  piece.className = 'confetti';
+  piece.style.left = Math.random() * 100 + 'vw';
+  piece.style.animationDuration = (Math.random() * 1 + 1.6) + 's';
+  piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
+  piece.style.background = ['red', 'blue', 'green', 'orange', 'purple', 'deeppink'][Math.floor(Math.random() * 6)];
+  document.body.appendChild(piece);
+  setTimeout(() => piece.remove(), 3000);
+}
 
-    setInterval(() => {
-      for (let i = 0; i < 5; i++) {
-        spawnConfetti();
-      }
-    }, 500);
+setInterval(() => {
+  for (let i = 0; i < 12; i++) {
+    spawnConfetti();
+  }
+}, 250);
   </script>
 </body>
 </html>
