@@ -221,13 +221,37 @@
     .cake-icon:nth-child(8n)  { animation-delay: 0.3s; }
     .cake-icon:nth-child(9n)  { animation-delay: 0.45s; }
 
-    .bottom-secret {
+    .bottom-secret,
+    .video-secret {
       text-align: center;
       margin-top: 34px;
     }
 
     .bottom-secret .second-hidden-message {
       margin-top: 16px;
+    }
+
+    .party-video-wrap {
+      margin-top: 18px;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease;
+    }
+
+    .party-video-wrap.show {
+      opacity: 1;
+      max-height: 900px;
+      transform: translateY(0);
+    }
+
+    .party-video-wrap video {
+      width: min(100%, 720px);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.65);
+      background: #000;
     }
 
     .footer {
@@ -337,6 +361,7 @@
           Hier wird nicht diskutiert, hier wird entschieden. Genau das macht dich so einzigartig und sorgt dafür,
           dass man dich einfach ernst nehmen muss – und genau das ist auch ziemlich beeindruckend.
           <br><br>
+          Man braucht einen Moment, um dich zu lesen… aber genau das macht dich irgendwie besonders spannend. 😉
         </p>
       </article>
     </section>
@@ -358,9 +383,22 @@
       </div>
     </div>
 
-<p class="footer">
-  Offiziell natürlich kein bisschen älter – nur erfahrener, klüger und gefährlicher 😄
-</p>
+    <div class="video-secret">
+      <button class="secondary" onclick="revealPartyVideo()">
+        Klick auf eigene Gefahr.. Abschluss für diesen Tag: PAAAAARTYYY
+      </button>
+
+      <div id="partyVideoWrap" class="party-video-wrap">
+        <video id="partyVideo" controls playsinline preload="metadata">
+          <source src="party.mp4" type="video/mp4" />
+          Dein Browser kann dieses Video leider nicht abspielen.
+        </video>
+      </div>
+    </div>
+
+    <p class="footer">
+      Offiziell natürlich kein bisschen älter – nur erfahrener, klüger und gefährlicher 😄
+    </p>
   </main>
 
   <script>
@@ -372,6 +410,21 @@
       document.getElementById('secondMessage').classList.add('show');
     }
 
+    function revealPartyVideo() {
+      const wrap = document.getElementById('partyVideoWrap');
+      const video = document.getElementById('partyVideo');
+
+      wrap.classList.add('show');
+      video.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          /* Browser blockiert evtl. Autoplay, Player bleibt trotzdem sichtbar */
+        });
+      }
+    }
+
     const cakesContainer = document.getElementById('cakes');
     for (let i = 0; i < 36; i++) {
       const cake = document.createElement('span');
@@ -380,22 +433,22 @@
       cakesContainer.appendChild(cake);
     }
 
-function spawnConfetti() {
-  const piece = document.createElement('div');
-  piece.className = 'confetti';
-  piece.style.left = Math.random() * 100 + 'vw';
-  piece.style.animationDuration = (Math.random() * 1 + 1.6) + 's';
-  piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
-  piece.style.background = ['red', 'blue', 'green', 'orange', 'purple', 'deeppink'][Math.floor(Math.random() * 6)];
-  document.body.appendChild(piece);
-  setTimeout(() => piece.remove(), 3000);
-}
+    function spawnConfetti() {
+      const piece = document.createElement('div');
+      piece.className = 'confetti';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
+      piece.style.background = ['red', 'blue', 'green', 'orange', 'purple', 'deeppink'][Math.floor(Math.random() * 6)];
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 5000);
+    }
 
-setInterval(() => {
-  for (let i = 0; i < 10; i++) {
-    spawnConfetti();
-  }
-}, 500);
+    setInterval(() => {
+      for (let i = 0; i < 10; i++) {
+        spawnConfetti();
+      }
+    }, 500);
   </script>
 </body>
 </html>
