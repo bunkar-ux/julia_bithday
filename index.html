@@ -1,5 +1,3 @@
-<!-- update -->
-<!-- update -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,7 +15,9 @@
       --shadow: 0 20px 60px rgba(0,0,0,0.12);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -57,11 +57,13 @@
       background: rgba(233, 78, 119, 0.12);
       color: var(--accent);
       font-weight: 700;
+      letter-spacing: 0.02em;
       margin-bottom: 18px;
     }
 
     h1 {
       font-size: clamp(2.4rem, 7vw, 5rem);
+      line-height: 0.95;
       margin: 0 0 16px;
     }
 
@@ -69,20 +71,36 @@
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
 
     .cta-row {
       margin-top: 28px;
       display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
       justify-content: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
     }
 
     .secondary {
       background: white;
-      border-radius: 14px;
-      padding: 14px 18px;
-      cursor: pointer;
-      font-weight: 700;
+      color: var(--text);
     }
 
     .grid {
@@ -95,6 +113,9 @@
     .card {
       grid-column: span 6;
       background: var(--card);
+      border: 1px solid rgba(255,255,255,0.65);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
       border-radius: 24px;
       padding: 24px;
     }
@@ -103,37 +124,117 @@
       grid-column: span 12;
     }
 
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+
     .timeline {
       list-style: none;
       padding: 0;
+      margin: 0;
       display: grid;
-      gap: 10px;
+      gap: 14px;
     }
 
     .timeline li {
+      padding: 14px 16px;
+      border-radius: 16px;
       background: rgba(255,255,255,0.7);
-      padding: 10px;
-      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.05);
     }
 
     .reveal {
       margin-top: 24px;
       padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,255,255,0.68));
+      border: 1px solid rgba(255,255,255,0.75);
       text-align: center;
+      min-height: 116px;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
     }
 
-    .hidden-message {
+    .hidden-message,
+    .second-hidden-message {
+      font-size: clamp(1.05rem, 2.1vw, 1.3rem);
+      font-weight: 700;
       opacity: 0;
-      transition: 0.3s;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
-    .hidden-message.show {
+    .hidden-message.show,
+    .second-hidden-message.show {
       opacity: 1;
+      transform: translateY(0);
     }
 
     .cake-wrap {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 26px;
+      padding: 8px 16px;
+    }
+
+    .cakes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 6px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .cake-icon {
+      display: inline-block;
+      font-size: 1.5rem;
+      line-height: 1;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      animation: candleFlicker 1.2s infinite ease-in-out;
+      transform-origin: center bottom;
+      filter: drop-shadow(0 0 0 rgba(255, 180, 0, 0));
+    }
+
+    .cake-wrap:hover .cake-icon {
+      transform: translateY(-4px) rotate(-5deg) scale(1.05);
+      filter: drop-shadow(0 0 8px rgba(255, 181, 72, 0.45));
+    }
+
+    .cake-wrap:hover .cake-icon:nth-child(even) {
+      transform: translateY(-5px) rotate(5deg) scale(1.06);
+    }
+
+    .cake-note {
+      text-align: center;
+      margin-top: 12px;
+      opacity: 0.72;
+      font-size: 0.95rem;
+    }
+
+    .cake-icon:nth-child(3n)  { animation-duration: 1.0s; }
+    .cake-icon:nth-child(4n)  { animation-duration: 1.35s; }
+    .cake-icon:nth-child(5n)  { animation-duration: 1.1s; }
+    .cake-icon:nth-child(6n)  { animation-duration: 1.45s; }
+    .cake-icon:nth-child(7n)  { animation-delay: 0.15s; }
+    .cake-icon:nth-child(8n)  { animation-delay: 0.3s; }
+    .cake-icon:nth-child(9n)  { animation-delay: 0.45s; }
+
+    .bottom-secret {
+      text-align: center;
+      margin-top: 34px;
+    }
+
+    .bottom-secret .second-hidden-message {
+      margin-top: 16px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 26px;
+      opacity: 0.65;
+      font-size: 0.95rem;
     }
 
     .confetti {
@@ -141,95 +242,160 @@
       top: -20px;
       width: 10px;
       height: 18px;
+      opacity: 0.85;
+      pointer-events: none;
       animation: fall linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes candleFlicker {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 0 2px rgba(255, 196, 0, 0.18));
+      }
+      25% {
+        transform: translateY(-1px) scale(1.03) rotate(-1deg);
+        filter: drop-shadow(0 0 4px rgba(255, 196, 0, 0.28));
+      }
+      50% {
+        transform: translateY(0) scale(0.99) rotate(1deg);
+        filter: drop-shadow(0 0 7px rgba(255, 160, 0, 0.38));
+      }
+      75% {
+        transform: translateY(-1px) scale(1.02) rotate(-0.5deg);
+        filter: drop-shadow(0 0 5px rgba(255, 196, 0, 0.32));
+      }
     }
 
     @keyframes fall {
-      to { transform: translateY(110vh); }
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .card {
+        grid-column: span 12;
+      }
+
+      .hero {
+        padding: 24px;
+      }
     }
   </style>
 </head>
-
 <body>
+  <main class="container">
+    <section class="hero">
+      <div class="badge">Heute ist dein Tag 🎉</div>
+      <h1>
+        Alles Gute zum Geburtstag,<br />
+        <span class="gradient">Малая Юля</span>
+      </h1>
 
-<main class="container">
+      <div class="cta-row">
+        <button class="secondary" onclick="revealMessage()">Geheime Nachricht</button>
+      </div>
 
-<section class="hero">
-  <div class="badge">Heute ist dein Tag 🎉</div>
-  <h1>
-    Alles Gute zum Geburtstag,<br />
-    <span class="gradient">Малая Юля</span>
-  </h1>
+      <div class="reveal">
+        <div id="hiddenMessage" class="hidden-message">
+          Ich wünsche dir Gesundheit, gute Laune, wenig Chaos und sehr viele starke Momente im neuen Lebensjahr. 🥂
+        </div>
+      </div>
+    </section>
 
-  <div class="cta-row">
-    <button class="secondary" onclick="revealMessage()">Geheime Nachricht</button>
-  </div>
+    <section class="grid">
+      <article class="card">
+        <h2>Was dich ausmacht</h2>
+        <ul class="timeline">
+          <li>💡 Du bringst kluge Ideen mit.</li>
+          <li>😄 Du machst den Arbeitsalltag angenehmer.</li>
+          <li>🚀 Du bist zuverlässig und stark.</li>
+          <li>🎓 Du setzt interessante Ansatzpunkte.</li>
+        </ul>
+      </article>
 
-  <div class="reveal">
-    <div id="hiddenMessage" class="hidden-message">
-      Ich wünsche dir Gesundheit, gute Laune, wenig Chaos und sehr viele starke Momente im neuen Lebensjahr. 🥂
+      <article class="card">
+        <h2>Inoffizielle Statistik</h2>
+        <ul class="timeline">
+          <li>Sturheit: 100%</li>
+          <li>Blick: durchdringend</li>
+          <li>Respektfaktor: hoch</li>
+          <li>Aus Langeweile in der Pandemie einfach noch einen Abschluss gemacht – andere haben Sauerteig gezüchtet 🎓</li>
+          <li>Alleinerziehend durch die besten Jahre… und trotzdem mehr im Griff als die meisten von uns 💪</li>
+          <li>Mit Intelligenz gesegnet… und damit leider oft von der Realität unterfordert 😄</li>
+          <li>Stur wie ein Stein – was überraschend oft genau die richtige Strategie ist 🪨</li>
+          <li>Dieser Blick… entweder man liefert – oder man geht besser nochmal nachdenken 👀</li>
+          <li>Wahrscheinlich die Einzige, die selbst einem russischen Winter sagen würde, dass er sich zusammenreißen soll ❄️</li>
+        </ul>
+      </article>
+
+      <article class="card full-width">
+        <h2>Persönliche Nachricht</h2>
+        <p style="line-height: 1.7; margin: 0;">
+          Du hast diese besondere Mischung aus absoluter Entschlossenheit und einem Blick, der sofort klarmacht:
+          Hier wird nicht diskutiert, hier wird entschieden. Genau das macht dich so einzigartig und sorgt dafür,
+          dass man dich einfach ernst nehmen muss – und genau das ist auch ziemlich beeindruckend.
+          <br><br>
+        </p>
+      </article>
+    </section>
+
+    <section class="cake-wrap">
+      <div class="cakes" id="cakes"></div>
+      <p class="cake-note">
+        Zähl die Kuchen… hab aus purer Fiesheit extra kleine Icons genommen 😄
+      </p>
+    </section>
+
+    <div class="bottom-secret">
+      <button class="secondary" onclick="revealSecondMessage()">
+        Noch eine Geheime Botschaft
+      </button>
+
+      <div id="secondMessage" class="second-hidden-message">
+        So..genug gefreut, jetzt wieder an die Arbeit :-)
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="grid">
+<p class="footer">
+  Offiziell natürlich kein bisschen älter – nur erfahrener, klüger und gefährlicher 😄
+</p>
+  </main>
 
-  <article class="card">
-    <h2>Was dich ausmacht</h2>
-    <ul class="timeline">
-      <li>💡 Du bringst kluge Ideen mit.</li>
-      <li>😄 Du machst den Arbeitsalltag angenehmer.</li>
-      <li>🚀 Du bist zuverlässig und stark.</li>
-    </ul>
-  </article>
-
-  <article class="card">
-    <h2>Inoffizielle Statistik</h2>
-    <ul class="timeline">
-      <li>Sturheit: 100%</li>
-      <li>Blick: durchdringend</li>
-      <li>Respektfaktor: hoch</li>
-      <li>Aus Langeweile in der Pandemie einfach noch einen Abschluss gemacht 🎓</li>
-      <li>Alleinerziehend durch die besten Jahre 💪</li>
-      <li>Mit Intelligenz gesegnet und die Welt damit überfordert..😄</li>
-      <li>Dieser Blick… entweder man liefert oder man denkt nochmal drüber nach👀</li>
-    </ul>
-  </article>
-
-  <article class="card full-width">
-    <h2>Persönliche Nachricht</h2>
-    <p>
-      Du hast diese Mischung aus Entschlossenheit und einem Blick,
-      der sofort klarmacht: hier wird nicht diskutiert, hier wird entschieden.
-      Genau das macht dich so besonders.
-    </p>
-  </article>
-
-</section>
-
-<section class="cake-wrap">
   <script>
-    for(let i=0;i<36;i++){
-      document.write("🎂");
+    function revealMessage() {
+      document.getElementById('hiddenMessage').classList.add('show');
     }
+
+    function revealSecondMessage() {
+      document.getElementById('secondMessage').classList.add('show');
+    }
+
+    const cakesContainer = document.getElementById('cakes');
+    for (let i = 0; i < 36; i++) {
+      const cake = document.createElement('span');
+      cake.className = 'cake-icon';
+      cake.textContent = '🎂';
+      cakesContainer.appendChild(cake);
+    }
+
+    function spawnConfetti() {
+      const piece = document.createElement('div');
+      piece.className = 'confetti';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
+      piece.style.background = ['red', 'blue', 'green', 'orange', 'purple', 'deeppink'][Math.floor(Math.random() * 6)];
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 5000);
+    }
+
+    setInterval(() => {
+      for (let i = 0; i < 5; i++) {
+        spawnConfetti();
+      }
+    }, 500);
   </script>
-</section>
-
-</main>
-
-<script>
-function revealMessage() {
-  document.getElementById('hiddenMessage').classList.add('show');
-}
-
-setInterval(()=>{
-  const c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random()*100+"vw";
-  document.body.appendChild(c);
-  setTimeout(()=>c.remove(),4000);
-},300);
-</script>
-
 </body>
 </html>
