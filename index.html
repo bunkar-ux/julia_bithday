@@ -1,267 +1,4 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alles Gute zum Geburtstag!</title>
-  <style>
-    :root {
-      --bg1: #fff7f5;
-      --bg2: #ffe8f0;
-      --card: rgba(255,255,255,0.78);
-      --text: #1f1f1f;
-      --accent: #e94e77;
-      --accent-2: #7c3aed;
-      --shadow: 0 20px 60px rgba(0,0,0,0.12);
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, #fff 0%, transparent 35%),
-        radial-gradient(circle at bottom right, #ffd6e8 0%, transparent 30%),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .container {
-      width: min(1000px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 32px 0 80px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero {
-      margin-top: 24px;
-      padding: 32px;
-      border-radius: 28px;
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.6);
-      text-align: center;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(233, 78, 119, 0.12);
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(2.4rem, 7vw, 5rem);
-      line-height: 0.95;
-      margin: 0 0 16px;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .subtitle {
-      font-size: clamp(1rem, 2.2vw, 1.25rem);
-      max-width: 720px;
-      margin: 0 auto;
-      opacity: 0.85;
-      line-height: 1.6;
-    }
-
-    .cta-row {
-      margin-top: 28px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    button {
-      border: none;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.14);
-    }
-
-    .primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: white;
-    }
-
-    .secondary {
-      background: white;
-      color: var(--text);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
-
-    .card {
-      grid-column: span 6;
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.65);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow);
-      border-radius: 24px;
-      padding: 24px;
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.3rem;
-    }
-
-    .timeline {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 14px;
-    }
-
-    .timeline li {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .quote {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .quote small {
-      display: block;
-      margin-top: 12px;
-      opacity: 0.7;
-      font-size: 0.95rem;
-    }
-
-    .reveal {
-      margin-top: 24px;
-      padding: 22px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(255,255,255,0.68));
-      border: 1px solid rgba(255,255,255,0.75);
-      text-align: center;
-      min-height: 116px;
-      display: grid;
-      place-items: center;
-      box-shadow: var(--shadow);
-    }
-
-    .hidden-message {
-      font-size: clamp(1.1rem, 2.3vw, 1.6rem);
-      font-weight: 700;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-
-    .hidden-message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 26px;
-      opacity: 0.65;
-      font-size: 0.95rem;
-    }
-
-    .confetti {
-      position: fixed;
-      top: -20px;
-      width: 10px;
-      height: 18px;
-      opacity: 0.85;
-      pointer-events: none;
-      animation: fall linear forwards;
-      z-index: 1;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(720deg);
-      }
-    }
-
-    @media (max-width: 800px) {
-      .card {
-        grid-column: span 12;
-      }
-
-      .hero {
-        padding: 24px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main class="container">
-    <section class="hero">
-      <div class="badge">Heute ist dein Tag 🎉</div>
-      <h1>
-        Alles Gute zum Geburtstag,<br />
-        <span class="gradient">[Name der Kollegin]</span>
-      </h1>
-      <p class="subtitle">
-        Diese kleine Seite existiert nur zu einem Zweck: dir heute zu sagen,
-        dass du großartig bist, das Team besser machst und definitiv mehr Stil hast
-        als die meisten Fehlermeldungen, mit denen wir sonst arbeiten müssen.
-      </p>
-
-      <div class="cta-row">
-        <button class="primary" onclick="launchConfetti()">Geburtstagsmodus starten</button>
-        <button class="secondary" onclick="revealMessage()">Geheime Nachricht</button>
-      </div>
-
-      <div class="reveal">
-        <div id="hiddenMessage" class="hidden-message">
-          Ich wünsche dir Gesundheit, gute Laune, wenig Chaos und sehr viele starke Momente im neuen Lebensjahr. 🥂
-        </div>
-      </div>
-    </section>
-
-    <section class="grid">
-      <article class="card">
-        <h2>Was dich ausmacht</h2>
-        <ul class="timeline">
-          <li>💡 Du bringst kluge Ideen mit, bevor andere überhaupt das Problem verstanden haben.</li>
-          <li>😄 Du machst den Arbeitsalltag spürbar angenehmer.</li>
-          <li>🚀 Du bist verlässlich, kompetent und wahrscheinlich effizienter als unser Build-System.</li>
-        </ul>
-      </article>
-
-      <article class="card">
         <h2>Inoffizielle Statistik</h2>
         <ul class="timeline">
           <li>Meetings durch dich erträglicher gemacht: 97%</li>
@@ -282,14 +19,25 @@
       <article class="card">
         <h2>Persönliche Nachricht</h2>
         <p style="line-height: 1.7; margin: 0;">
-          Danke, dass du so bist, wie du bist. Ich hoffe, du hast heute einen richtig guten Tag,
-          wirst gefeiert, beschenkt und lässt dir von niemandem erzählen, dass Kuchen kein vollwertiges Mittagessen ist.
+          Du hast eine beeindruckende Mischung aus absoluter Entschlossenheit, steinfester Haltung und diesem legendären Blick, bei dem man sofort weiß: Diskussion möglich, aber Ausgang fraglich. Natürlich ist genau das auch Teil deines Charmes. Bleib bitte genauso herrlich konsequent, schlagfertig und unverwechselbar, wie du bist.
         </p>
       </article>
     </section>
 
+    <section class="cake-wrap">
+      <div class="cake" aria-label="Geburtstagskuchen mit 36 Kerzen">
+        <div class="candles">
+          <div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div>
+          <div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div>
+          <div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div><div class="candle"></div>
+        </div>
+        <div class="cake-top"></div>
+        <div class="cake-body"></div>
+      </div>
+    </section>
+
     <p class="footer">
-      Mit gebautem Aufwand, aber ehrlicher Absicht. ❤️
+      So so... kommt die 4 vorne immer näher :-)
     </p>
   </main>
 
@@ -298,20 +46,28 @@
       document.getElementById('hiddenMessage').classList.add('show');
     }
 
-    function launchConfetti() {
-      for (let i = 0; i < 120; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'confetti';
-        piece.style.left = Math.random() * 100 + 'vw';
-        piece.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
-        piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
-        piece.style.background = [
-          '#e94e77', '#7c3aed', '#ffb703', '#06d6a0', '#118ab2', '#ef476f'
-        ][Math.floor(Math.random() * 6)];
+    function spawnConfettiPiece() {
+      const piece = document.createElement('div');
+      piece.className = 'confetti';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.animationDuration = (Math.random() * 2 + 3.5) + 's';
+      piece.style.transform = `translateY(0) rotate(${Math.random() * 360}deg)`;
+      piece.style.background = [
+        '#e94e77', '#7c3aed', '#ffb703', '#06d6a0', '#118ab2', '#ef476f'
+      ][Math.floor(Math.random() * 6)];
 
-        document.body.appendChild(piece);
-        setTimeout(() => piece.remove(), 5000);
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 6500);
+    }
+
+    setInterval(() => {
+      for (let i = 0; i < 6; i++) {
+        spawnConfettiPiece();
       }
+    }, 700);
+
+    for (let i = 0; i < 24; i++) {
+      setTimeout(spawnConfettiPiece, i * 120);
     }
   </script>
 </body>
