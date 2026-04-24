@@ -309,6 +309,8 @@
   </style>
 </head>
 <body>
+  <audio id="birthdayAudio" src="hb_song.mp3" preload="auto"></audio>
+
   <main class="container">
     <section class="hero">
       <div class="badge">Heute ist dein Tag 🎉</div>
@@ -378,7 +380,7 @@
       </button>
 
       <div id="secondMessage" class="second-hidden-message">
-        So..genug gefreut, jetzt wieder an die Arbeit :-)
+        Viel zu Neugierig... 😄
       </div>
     </div>
 
@@ -401,6 +403,38 @@
   </main>
 
   <script>
+    let birthdayAudioPlayed = false;
+
+    function playBirthdayAudio() {
+      if (birthdayAudioPlayed) return;
+
+      const audio = document.getElementById('birthdayAudio');
+      if (!audio) return;
+
+      audio.volume = 1;
+      audio.currentTime = 0;
+
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            birthdayAudioPlayed = true;
+          })
+          .catch(() => {
+            /* Browser blockiert Autoplay mit Ton. Beim ersten Klick/Touch wird es erneut versucht. */
+          });
+      }
+    }
+
+    window.addEventListener('load', () => {
+      playBirthdayAudio();
+    });
+
+    ['click', 'touchstart', 'keydown'].forEach((eventName) => {
+      document.addEventListener(eventName, playBirthdayAudio, { once: true });
+    });
+
     function revealMessage() {
       document.getElementById('hiddenMessage').classList.add('show');
     }
